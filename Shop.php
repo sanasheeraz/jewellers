@@ -14,7 +14,7 @@ $result=mysqli_query($conn,$query);
 <div style="margin : 40px;">
 <h1><b><i>Gallery Page</b></i></h1>
 <div class="container">
-  <h1><?php echo count($_SESSION['cart']);?></h1>
+  <h1><a href="viewCart.php"><?php echo count($_SESSION['cart']);?></a></h1>
   <div class="row">
    <?php
    while($row=mysqli_fetch_array($result))
@@ -39,7 +39,7 @@ $result=mysqli_query($conn,$query);
               <?php echo $row['P_Price']?>
               </div>
               <div class="col-lg-4">
-              <a href="addCart.php?id=<?php echo $row['P_Id']?>"><button class="btn btn-success">+Cart</button></a>
+              <a href="AddCart.php?id=<?php echo $row['P_Id']?>"><button class="btn btn-success">+Cart</button></a>
               </div>
             </div>
           </div>

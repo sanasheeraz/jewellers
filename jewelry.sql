@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 06, 2020 at 08:39 PM
+-- Generation Time: Jul 14, 2020 at 01:55 PM
 -- Server version: 10.1.30-MariaDB
 -- PHP Version: 7.2.1
 
@@ -77,17 +77,34 @@ CREATE TABLE `invoice` (
   `P_Quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `invoice`
+--
+
+INSERT INTO `invoice` (`I_Id`, `O_Id`, `P_Id`, `P_Name`, `P_Price`, `P_Quantity`) VALUES
+(1, 1, 3, 'Karre', 500, 5),
+(2, 4, 1, 'Haar', 825000, 2),
+(3, 4, 2, 'Ring', 30000, 3);
+
 -- --------------------------------------------------------
 
 --
--- Table structure for table `order`
+-- Table structure for table `orders`
 --
 
-CREATE TABLE `order` (
+CREATE TABLE `orders` (
   `O_Id` int(11) NOT NULL,
   `U_Id` int(11) NOT NULL,
-  `O_Total Amount` int(11) NOT NULL
+  `O_Total_Amount` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`O_Id`, `U_Id`, `O_Total_Amount`) VALUES
+(1, 1, 2500),
+(4, 1, 1740000);
 
 -- --------------------------------------------------------
 
@@ -162,10 +179,11 @@ ALTER TABLE `invoice`
   ADD KEY `product` (`P_Id`);
 
 --
--- Indexes for table `order`
+-- Indexes for table `orders`
 --
-ALTER TABLE `order`
-  ADD PRIMARY KEY (`O_Id`);
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`O_Id`),
+  ADD KEY `user` (`U_Id`);
 
 --
 -- Indexes for table `product`
@@ -200,13 +218,13 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `invoice`
 --
 ALTER TABLE `invoice`
-  MODIFY `I_Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `I_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `order`
+-- AUTO_INCREMENT for table `orders`
 --
-ALTER TABLE `order`
-  MODIFY `O_Id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `orders`
+  MODIFY `O_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product`
@@ -228,14 +246,14 @@ ALTER TABLE `user`
 -- Constraints for table `invoice`
 --
 ALTER TABLE `invoice`
-  ADD CONSTRAINT `order` FOREIGN KEY (`O_Id`) REFERENCES `order` (`O_Id`),
+  ADD CONSTRAINT `order` FOREIGN KEY (`O_Id`) REFERENCES `orders` (`O_Id`),
   ADD CONSTRAINT `product` FOREIGN KEY (`P_Id`) REFERENCES `product` (`P_Id`);
 
 --
--- Constraints for table `order`
+-- Constraints for table `orders`
 --
-ALTER TABLE `order`
-  ADD CONSTRAINT `user` FOREIGN KEY (`O_Id`) REFERENCES `user` (`U_Id`);
+ALTER TABLE `orders`
+  ADD CONSTRAINT `user` FOREIGN KEY (`U_Id`) REFERENCES `user` (`U_Id`);
 
 --
 -- Constraints for table `product`
